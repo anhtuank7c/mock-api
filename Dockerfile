@@ -29,6 +29,7 @@ WORKDIR /app
 
 COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/dev.db .
+COPY --from=builder /app/dev.db-journal .
 
 COPY src src
 COPY tsconfig.json .
