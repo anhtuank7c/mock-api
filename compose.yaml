@@ -10,4 +10,6 @@ services:
     # expose the right ports
     ports: ["3000:3000"]
     # setup a host mounted volume to sync changes to the container
-    volumes: ["./:/home/bun/app"]
+    volumes:
+      - ./:/home/bun/app
+      - ./:/home/bun/prisma
