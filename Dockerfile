@@ -22,16 +22,17 @@ RUN bunx prisma generate
 RUN bunx prisma migrate deploy
 
 # release
-# FROM oven/bun as release
+FROM oven/bun as release
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY --from=builder /app/node_modules node_modules
+COPY --from=builder /app/node_modules node_modules
 # COPY --from=builder /app/dev.db .
 # COPY --from=builder /app/dev.db-journal .
 
-COPY src src
-COPY tsconfig.json .
+COPY . .
+RUN ls -la
+# COPY tsconfig.json .
 # COPY .env .env
 # COPY package.json .
 
