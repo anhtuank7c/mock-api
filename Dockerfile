@@ -19,21 +19,14 @@ COPY .env .env
 
 RUN bun install --frozen-lockfile
 RUN bunx prisma generate
-# RUN bunx prisma migrate deploy
+RUN bunx prisma migrate deploy
 
 # release
 FROM oven/bun as release
 
 WORKDIR /app
 
-COPY --from=builder /app/node_modules node_modules
-
-COPY src src
-COPY tsconfig.json .
-COPY .env .env
-COPY package.json .
-
-RUN bunx prisma migrate deploy
+COPY --from=builder /app/. .
 
 ENV NODE_ENV production
 CMD ["bun", "serve"]
