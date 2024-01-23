@@ -5,7 +5,9 @@
   "homepage": "https://github.com/anhtuank7c/mock-api",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/app.ts"
+    "dev": "bun run --watch src/app.ts",
+    "serve": "bun --bun run src/app.ts",
+    "postinstall": "bunx prisma generate"
   },
   "bugs": {
     "url": "https://github.com/anhtuank7c/mock-api/issues",
@@ -27,8 +29,7 @@
     "elysia": "^0.7.25"
   },
   "devDependencies": {
-    "bun-types": "latest",
-    "prisma": "^5.8.1"
+    "bun-types": "latest"
   },
   "module": "src/index.js"
 }
