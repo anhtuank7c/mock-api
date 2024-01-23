@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package.json .
 COPY bun.lockb .
 
-RUN bun install --production
+RUN bun install
+# RUN bun install --production
 RUN bun prisma generate
 
 COPY src src
