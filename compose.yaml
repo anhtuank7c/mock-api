@@ -2,7 +2,11 @@ version: '3.9'
 
 services:
   app:
-    image: "oven/bun"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mock_api
+    restart: always
     # override default entrypoint allows us to do `bun install` before serving
     entrypoint: []
     # execute bun install before we start the dev server in watch mode
@@ -12,4 +16,4 @@ services:
     # setup a host mounted volume to sync changes to the container
     volumes:
       - ./:/home/bun/app
-      - ./:/home/bun/prisma
+      - /app/prisma
