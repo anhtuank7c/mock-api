@@ -22,8 +22,7 @@ COPY --from=builder /app/src /app/src
 COPY --from=builder /app/tsconfig.json /app
 COPY --from=builder /app/package.json /app
 COPY --from=builder /app/.env /app
-COPY --from=builder /app/node_modules/.prisma /app/node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma /app/node_modules/@prisma
+COPY --from=builder /app/node_modules /app/node_modules
 
 # COPY public public
 
