@@ -3,3 +3,4 @@ src/generated
 *.db
 *.db-journal
 data
+.env
