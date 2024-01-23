@@ -15,6 +15,7 @@ RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
 COPY package.json .
 COPY bun.lockb .
 COPY prisma prisma
+COPY .env .env
 
 RUN bun install --frozen-lockfile
 RUN npx prisma generate
@@ -30,8 +31,8 @@ COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/dev.db .
 
 COPY src src
-COPY .env .env
 COPY tsconfig.json .
+COPY .env .env
 COPY package.json .
 
 ENV NODE_ENV production
