@@ -1,19 +1,23 @@
 # builder
-FROM debian:11.6-slim as builder
+FROM ubuntu:jammy as builder
 
 WORKDIR /app
+
+ENV BUN_INSTALL="/root/.bun"
 
 RUN apt update
 RUN apt install curl unzip -y
 RUN curl https://bun.sh/install | bash
+RUN ln -s $BUN_INSTALL/bin/bun /usr/local/bin/bun
 
 COPY package.json .
 COPY bun.lockb .
 COPY prisma prisma
 
-RUN /root/.bun/bin/bun install --production
-RUN /root/.bun/bin/bunx prisma generate
-RUN /root/.bun/bin/bunx prisma migrate
+RUN bun install
+RUN bun prisma migrate
+
+RUN ls -la
 
 # release
 FROM oven/bun as release
@@ -21,11 +25,11 @@ FROM oven/bun as release
 WORKDIR /app
 
 COPY --from=builder /app/node_modules node_modules
-COPY --from=builder /app/dev.db .
 
 COPY src src
 COPY .env .env
 COPY tsconfig.json .
+COPY package.json .
 
 ENV NODE_ENV production
 CMD ["bun", "serve"]
