@@ -1,22 +1,24 @@
 # builder
-FROM ubuntu:jammy as builder
+FROM oven/bun as builder
 
 WORKDIR /app
 
-ENV BUN_INSTALL="/root/.bun"
-
-RUN apt update
-RUN apt install curl unzip -y
-RUN curl https://bun.sh/install | bash
-RUN ln -s $BUN_INSTALL/bin/bun /usr/local/bin/bun
+# Install nodejs using n
+ARG NODE_VERSION=20
+RUN apt update \
+    && apt install -y curl
+RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
+    && bash n $NODE_VERSION \
+    && rm n \
+    && npm install -g n
 
 COPY package.json .
 COPY bun.lockb .
 COPY prisma prisma
 
-RUN bun install
-RUN bun prisma migrate
-
+RUN bun install --frozen-lockfile
+RUN npx prisma generate
+RUN npx prisma migrate
 RUN ls -la
 
 # release
@@ -25,6 +27,7 @@ FROM oven/bun as release
 WORKDIR /app
 
 COPY --from=builder /app/node_modules node_modules
+COPY --from=builder /app/dev.db .
 
 COPY src src
 COPY .env .env

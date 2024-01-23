@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/app.ts",
     "serve": "bun --bun run src/app.ts",
-    "postinstall": "bun prisma generate",
     "build-image": "docker buildx build . --progress=plain --no-cache"
   },
   "bugs": {
