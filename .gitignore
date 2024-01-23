@@ -1,3 +1,2 @@
 node_modules
-prisma/dev.db
-prisma/migrations
+prisma/generated
