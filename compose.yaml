@@ -10,10 +10,6 @@ services:
     # override default entrypoint allows us to do `bun install` before serving
     entrypoint: []
     # execute bun install before we start the dev server in watch mode
-    command: "/bin/sh -c 'bun install && bun prisma generate && bun serve'"
+    command: "/bin/sh -c 'bun install --production && bun prisma migrate dev && bun serve'"
     # expose the right ports
     ports: ["3000:3000"]
-    # setup a host mounted volume to sync changes to the container
-    volumes:
-      - ./:/home/bun/app
-      - /app/prisma

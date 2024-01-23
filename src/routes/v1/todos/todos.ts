@@ -1,5 +1,5 @@
 import { Elysia, t } from 'elysia';
-import { Prisma, PrismaClient } from '@client'
+import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const todos = new Elysia({ prefix: '/todos' })
