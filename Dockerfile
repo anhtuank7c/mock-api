@@ -12,10 +12,7 @@ RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
     && rm n \
     && npm install -g n
 
-COPY package.json .
-COPY bun.lockb .
-COPY prisma prisma
-COPY .env .env
+COPY . .
 
 RUN bun install --frozen-lockfile
 RUN bunx prisma generate
