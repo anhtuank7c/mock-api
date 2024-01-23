@@ -9,6 +9,8 @@ RUN bun install --production
 RUN bun prisma generate
 
 COPY src src
+COPY node_modules/.prisma .
+COPY node_modules/@prisma .
 COPY tsconfig.json .
 # COPY public public
 
