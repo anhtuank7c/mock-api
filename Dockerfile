@@ -18,7 +18,7 @@ COPY prisma prisma
 
 RUN bun install --frozen-lockfile
 RUN npx prisma generate
-RUN npx prisma migrate
+RUN npx prisma migrate deploy
 RUN ls -la
 
 # release
