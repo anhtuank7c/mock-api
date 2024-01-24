@@ -17,7 +17,6 @@ COPY . .
 RUN bun install --frozen-lockfile
 RUN bunx prisma generate
 RUN bunx prisma migrate deploy
-RUN ls -la data
 
 # release
 FROM oven/bun as release
@@ -25,7 +24,6 @@ FROM oven/bun as release
 WORKDIR /app
 
 COPY --from=builder /app/. .
-RUN ls -la data
 
 ENV NODE_ENV production
 CMD ["bun", "serve"]
